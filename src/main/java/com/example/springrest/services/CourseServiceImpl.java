@@ -1,6 +1,8 @@
 package com.example.springrest.services;
 
+import com.example.springrest.dao.CourseDao;
 import com.example.springrest.entity.Course;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,42 +10,32 @@ import java.util.List;
 
 @Service
 public class CourseServiceImpl implements CourseService{
-
-    List<Course> list;
+    @Autowired
+    CourseDao courseDao;
 
     // default constructor
-    public CourseServiceImpl() {
-        list = new ArrayList<>();
-        list.add(new Course(123,"Title one","description one"));
-        list.add(new Course(124,"Title two","description two"));
-        list.add(new Course(125,"Title three","description three"));
-    }
+    public CourseServiceImpl() {}
 
     @Override
     public List<Course> getCourses() {
-        return this.list;
+        return courseDao.findAll();
     }
 
     @Override
     public Course getCourse(Long courseId) {
-        for(Course item: list){
-            if(item.getId() == courseId){
-                return item;
-            }
-        }
-        return null;
+        return  courseDao.getReferenceById(courseId);
     }
 
     @Override
     public Course addCourse(Course course) {
-        list.add(course);
+        courseDao.save(course);
         return course;
     }
 
     @Override
     public void deleteCourse(Long courseId) {
-        Course course = this.getCourse(courseId);
-        list.remove(course);
+        Course course = courseDao.getReferenceById(courseId);
+        courseDao.delete(course);
     }
 }
 
