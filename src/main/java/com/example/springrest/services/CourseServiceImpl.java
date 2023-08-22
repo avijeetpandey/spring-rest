@@ -41,10 +41,9 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course deleteCourse(Long courseId) {
+    public void deleteCourse(Long courseId) {
         Course course = this.getCourse(courseId);
-         boolean isRemoved  = list.remove(course);
-         return isRemoved ? course : null;
+        list.remove(course);
     }
 }
 
