@@ -39,5 +39,12 @@ public class CourseServiceImpl implements CourseService{
         list.add(course);
         return course;
     }
+
+    @Override
+    public Course deleteCourse(Long courseId) {
+        Course course = this.getCourse(courseId);
+         boolean isRemoved  = list.remove(course);
+         return isRemoved ? course : null;
+    }
 }
 

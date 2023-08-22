@@ -25,7 +25,12 @@ public class CourseController {
     }
 
     @PostMapping("/courses/add")
-    public Course addCourse(@RequestBody Course course){
+    public Course addCourse(@RequestBody Course course) {
         return this.service.addCourse(course);
+    }
+
+    @DeleteMapping("/courses/{courseId}")
+    public Course deleteCourse(@PathVariable String courseId) {
+        return this.service.deleteCourse(Long.parseLong(courseId));
     }
 }
